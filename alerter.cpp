@@ -30,9 +30,12 @@ void alertInCelcius(float farenheit) {
 int main() {
     alertInCelcius(303.6); // OK
     assert(alertFailureCount == 0);
-    alertInCelcius(400.5); // NOK
+    alertInCelcius(392);   // 200°C, OK
+    assert(alertFailureCount == 0);
+    alertInCelcius(392);   // slightly more than 200°C, NOK
     assert(alertFailureCount == 1);
-    std::cout << alertFailureCount << " alerts failed.\n";
-    std::cout << "All is well (maybe!)\n";
+    alertInCelcius(400.5); // NOK
+    assert(alertFailureCount == 2);
+    std::cout << "All is well!\n";
     return 0;
 }

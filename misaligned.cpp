@@ -1,16 +1,18 @@
-#include <iostream>
-#include <assert.h>
+#include "misaligned.h"
+#include "misaligned_test.h"
+
+#define UTEST
 
 using namespace std;
 
-const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
-const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
-
 string indexToColorPair(int majorColorIndex, int minorColorIndex){
-    string separator = " | ";
-    return to_string(majorColorIndex*5+minorColorIndex) + \
-                            separator + majorColor[majorColorIndex] + \
-                            separator + minorColor[minorColorIndex]; 
+    string indexSeparator = separator;
+    int indexInt = majorColorIndex*5+minorColorIndex+1;
+    if(indexInt <= MAXSINGLENUMBER)
+        indexSeparator = " " + indexSeparator;
+    return to_string(indexInt) + \
+                     indexSeparator + majorColor[majorColorIndex] + \
+                     string(separator) + minorColor[minorColorIndex]; 
 }
 
 int printColorMap() {
@@ -25,20 +27,10 @@ int printColorMap() {
 
 int main() {
     printColorMap();
-    
-    int i = 0, j = 0;
-    for(; i < 5; i++){
-        for(; j < 5; j++){
-            cout << "Assertion for major color: " << i << " minor color: " << j \
-                 << " results in: " << endl;
-            string result = indexToColorPair(i, j);
-            assert(result.find(to_string((i*5+j)+1))!=string::npos);
-            assert(result.find(majorColor[i])!=string::npos);
-            assert(result.find(minorColor[j])!=string::npos);
-            cout << "Success!" <<endl;
-        }
-    }
-    
-    cout << "All is well (maybe!)\n";
+
+    #ifdef UTEST
+    colorMap_test();
+    #endif
+
     return 0;
 }
