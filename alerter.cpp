@@ -32,7 +32,7 @@ int main() {
     assert(alertFailureCount == 0);
     alertInCelcius(392);   // 200°C, OK
     assert(alertFailureCount == 0);
-    alertInCelcius(392);   // slightly more than 200°C, NOK
+    alertInCelcius(393);   // slightly more than 200°C, NOK
     assert(alertFailureCount == 1);
     alertInCelcius(400.5); // NOK
     assert(alertFailureCount == 2);
